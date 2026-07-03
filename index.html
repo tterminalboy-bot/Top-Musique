@@ -198,7 +198,7 @@
                         <p>Total des streams cumulés</p>
                         <div class="stats-number" id="statsStreams">0</div>
                     </div>
-                    
+                     
                     <div class="platform-container">
                         <a id="linkSpotify" class="platform-btn spotify-btn" target="_blank">🟢 Spotify</a>
                         <a id="linkApple" class="platform-btn apple-btn" target="_blank">🍎 Apple Music</a>
@@ -213,7 +213,9 @@
         const songsList = document.getElementById('songsList');
         const searchBar = document.getElementById('searchBar');
         const statsPanel = document.getElementById('statsPanel');
-        const SERVER_URL = "http://localhost:3000/api/search";
+        
+        // Modifié pour cibler ton vrai serveur en ligne
+        const SERVER_URL = "https://top-musique.onrender.com/api/search";
 
         async function searchMusic(query = '') {
             try {
@@ -221,7 +223,7 @@
                 const data = await response.json();
                 displaySongs(data);
             } catch (error) {
-                // Fallback avec les vraies images si le serveur Node n'est pas encore actif
+                // Fallback de secours si le serveur n'est pas disponible
                 displaySongs([
                     { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", image: "https://i.scdn.co/image/ab67616d0000b273b5089f24b2b2b1eb96d4ea2d", streams: "145M+", links: { spotify: "https://open.spotify.com/track/5X97Fh8c3G1VscX8Zt0C3G", apple: "#", youtube: "#" } },
                     { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", image: "https://i.scdn.co/image/ab67616d0000b27393cb17da2e6b21ba3778a846", streams: "1.8B+", links: { spotify: "https://open.spotify.com/track/7spvFS76Z707vAsG709wOf", apple: "#", youtube: "#" } },
@@ -277,4 +279,4 @@
         searchMusic('');
     </script>
 </body>
-</html> 
+</html>
