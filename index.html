@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #030303;
+            background-color: #0a0e17; /* Bleu nuit profond */
             color: #ffffff;
             display: flex;
             height: 100vh;
@@ -23,22 +23,26 @@
         /* Barre latérale (Menu) */
         nav {
             width: 240px;
-            background-color: #0f0f0f;
+            background-color: #111827; /* Bleu nuit un peu plus clair */
             padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            border-right: 1px solid #1f2937;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: #ff0000; /* Style un peu YT Music */
+            color: #38bdf8; /* Accent bleu électrique */
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         nav a {
-            color: #aaaaaa;
+            color: #9ca3af;
             text-decoration: none;
             font-size: 1.1rem;
             padding: 10px;
@@ -48,7 +52,7 @@
 
         nav a:hover, nav a.active {
             color: #ffffff;
-            background-color: #272727;
+            background-color: #1f2937;
         }
 
         /* Zone principale */
@@ -56,35 +60,37 @@
             flex: 1;
             padding: 30px;
             overflow-y: auto;
+            position: relative;
         }
 
         /* Barre de recherche */
         .search-container {
             margin-bottom: 30px;
-            display: flex;
-            gap: 10px;
         }
 
         .search-bar {
             width: 100%;
             max-width: 600px;
-            padding: 12px 20px;
+            padding: 14px 20px;
             border-radius: 25px;
-            border: 1px solid #272727;
-            background-color: #212121;
+            border: 1px solid #1f2937;
+            background-color: #111827;
             color: white;
             font-size: 1rem;
+            transition: 0.3s;
         }
 
         .search-bar:focus {
             outline: none;
-            border-color: #ff0000;
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
-        /* Grille des Tops */
+        /* Grille des morceaux */
         .section-title {
             margin-bottom: 20px;
             font-size: 1.6rem;
+            color: #f3f4f6;
         }
 
         .grid-songs {
@@ -95,30 +101,30 @@
         }
 
         .song-card {
-            background-color: #161616;
+            background-color: #111827;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: 0.3s;
-            text-align: center;
+            border: 1px solid #1f2937;
         }
 
         .song-card:hover {
-            background-color: #212121;
+            background-color: #1f2937;
             transform: translateY(-5px);
+            border-color: #38bdf8;
         }
 
-        .pochette-demo {
+        .pochette-art {
             width: 100%;
             aspect-ratio: 1/1;
-            background-color: #333;
-            border-radius: 6px;
+            background-color: #374151;
+            border-radius: 8px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
-            color: #666;
+            font-size: 2rem;
         }
 
         .song-title {
@@ -131,8 +137,78 @@
         }
 
         .song-artist {
-            color: #aaa;
+            color: #9ca3af;
             font-size: 0.9rem;
+        }
+
+        /* Fenêtre de Statistiques (Cachée par défaut) */
+        .stats-panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0a0e17;
+            padding: 30px;
+            display: none;
+            z-index: 10;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #38bdf8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .stats-content {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stats-pochette {
+            width: 250px;
+            height: 250px;
+            background-color: #1f2937;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .stats-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .stats-info h3 {
+            font-size: 1.5rem;
+            color: #38bdf8;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .stats-box {
+            background-color: #111827;
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid #1f2937;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .stats-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #10b981; /* Vert pour les streams */
         }
 
         /* Responsive Téléphone */
@@ -146,7 +222,9 @@
                 flex-direction: row;
                 justify-content: space-around;
                 padding: 10px;
-                order: 2; /* Met le menu en bas sur téléphone comme les app mobiles */
+                order: 2;
+                border-right: none;
+                border-top: 1px solid #1f2937;
             }
             .logo {
                 display: none;
@@ -155,43 +233,131 @@
                 order: 1;
                 padding: 15px;
             }
+            .stats-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">MusicStats 📊</div>
+        <div class="logo"><span>📊</span> MusicStats</div>
         <a href="#" class="active">Accueil</a>
         <a href="#">Top 10 France</a>
         <a href="#">Top Monde</a>
-        <a href="#">Top Jeunes</a>
     </nav>
 
     <main>
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Rechercher une chanson, un groupe, un album...">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher 'Slimane', 'Radiohead'...">
         </div>
 
-        <h2 class="section-title">Top 10 France du moment</h2>
-        <div class="grid-songs">
-            <div class="song-card" onclick="alert('Ici s\'ouvriront les stats (Écoutes, historique des pochettes...) !')">
-                <div class="pochette-demo">Pochette</div>
-                <div class="song-title">Chanson Exemple 1</div>
-                <div class="song-artist">Artiste Fr</div>
+        <h2 class="section-title" id="sectionTitle">Morceaux populaires</h2>
+        <div class="grid-songs" id="songsGrid">
             </div>
-            <div class="song-card">
-                <div class="pochette-demo">Pochette</div>
-                <div class="song-title">Chanson Exemple 2</div>
-                <div class="song-artist">Artiste 2</div>
-            </div>
-            <div class="song-card">
-                <div class="pochette-demo">Pochette</div>
-                <div class="song-title">Chanson Exemple 3</div>
-                <div class="song-artist">Artiste 3</div>
+
+        <div class="stats-panel" id="statsPanel">
+            <button class="back-btn" onclick="closeStats()">← Retour</button>
+            <div class="stats-content">
+                <div class="stats-pochette" id="statsPochette">🎵</div>
+                <div class="stats-info">
+                    <h2 id="statsTitle">Titre de la musique</h2>
+                    <h3 id="statsArtist">Artiste / Groupe</h3>
+                    <p id="statsAlbum">Album : Inconnu</p>
+                    <p id="statsDate">Date de sortie : --/--/----</p>
+                    
+                    <div class="stats-box">
+                        <p>Écoutes Totales cumulées (Spotify/YT/Apple)</p>
+                        <div class="stats-number" id="statsStreams">0</div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
+    <script>
+        // Notre base de données simulée (en attendant de brancher les vraies API)
+        const database = [
+            {
+                id: 1,
+                title: "Mon Amour",
+                artist: "Slimane",
+                album: "Chroniques d'un cupidon (Eurovision)",
+                date: "08/11/2023",
+                emoji: "❤️",
+                streams: "145 284 910 streams"
+            },
+            {
+                id: 2,
+                title: "Creep",
+                artist: "Radiohead",
+                album: "Pablo Honey",
+                date: "21/09/1992",
+                emoji: "🎸",
+                streams: "1 843 002 455 streams"
+            },
+            {
+                id: 3,
+                title: "La Symphonie des éclairs",
+                artist: "Zaho de Sagazan",
+                album: "La Symphonie des éclairs",
+                date: "31/03/2023",
+                emoji: "⚡",
+                streams: "62 419 003 streams"
+            }
+        ];
+
+        const songsGrid = document.getElementById('songsGrid');
+        const searchBar = document.getElementById('searchBar');
+        const statsPanel = document.getElementById('statsPanel');
+
+        // Fonction pour afficher les musiques dans la grille
+        function displaySongs(songs) {
+            songsGrid.innerHTML = "";
+            songs.forEach(song => {
+                const card = document.createElement('div');
+                card.className = 'song-card';
+                card.onclick = () => showStats(song);
+                card.innerHTML = `
+                    <div class="pochette-art">${song.emoji}</div>
+                    <div class="song-title">${song.title}</div>
+                    <div class="song-artist">${song.artist}</div>
+                `;
+                songsGrid.appendChild(card);
+            });
+        }
+
+        // Système de recherche en temps réel
+        searchBar.addEventListener('input', (e) => {
+            const searchString = e.target.value.toLowerCase();
+            const filteredSongs = database.filter(song => {
+                return song.title.toLowerCase().includes(searchString) || song.artist.toLowerCase().includes(searchString);
+            });
+            displaySongs(filteredSongs);
+        });
+
+        // Ouvrir le panneau de statistiques
+        function showStats(song) {
+            document.getElementById('statsTitle').innerText = song.title;
+            document.getElementById('statsArtist').innerText = song.artist;
+            document.getElementById('statsAlbum').innerText = "Album : " + song.album;
+            document.getElementById('statsDate').innerText = "Date de sortie : " + song.date;
+            document.getElementById('statsStreams').innerText = song.streams;
+            document.getElementById('statsPochette').innerText = song.emoji;
+            
+            statsPanel.style.display = "block";
+        }
+
+        // Fermer le panneau (Bouton Retour)
+        function closeStats() {
+            statsPanel.style.display = "none";
+        }
+
+        // Initialisation de la page
+        displaySongs(database);
+    </script>
 </body>
 </html>
