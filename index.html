@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #020617; /* VRAI Bleu nuit très profond/sombre */
+            background-color: #020617; /* VRAI Bleu nuit très profond */
             color: #f8fafc;
             display: flex;
             height: 100vh;
@@ -23,7 +23,7 @@
         /* Barre latérale */
         nav {
             width: 260px;
-            background-color: #0b1329; /* Bleu nuit contrasté */
+            background-color: #0b1329;
             padding: 24px;
             display: flex;
             flex-direction: column;
@@ -92,7 +92,7 @@
             letter-spacing: -0.5px;
         }
 
-        /* Interface "Sélection Rapide" à la YT Music (Lignes horizontales) */
+        /* Interface "Sélection Rapide" */
         .yt-list {
             display: flex;
             flex-direction: column;
@@ -221,7 +221,6 @@
             margin-top: 5px;
         }
 
-        /* Mode Mobile */
         @media (max-width: 768px) {
             body { flex-direction: column; }
             nav {
@@ -230,7 +229,6 @@
                 flex-direction: row;
                 padding: 10px;
                 order: 2;
-                border-right: none;
                 border-top: 1px solid #1e293b;
             }
             .logo { display: none; }
@@ -251,7 +249,7 @@
 
     <main>
         <div class="search-container">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher un titre ou un groupe...">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher sur le serveur...">
         </div>
 
         <h2 class="section-title" id="sectionTitle">Sélection rapide</h2>
@@ -267,7 +265,7 @@
                     <p id="statsAlbum">Album</p>
                     <p id="statsDate">Date de sortie</p>
                     <div class="stats-box">
-                        <p>Total des streams (API Live data)</p>
+                        <p>Total des streams (Données serveur)</p>
                         <div class="stats-number" id="statsStreams">0</div>
                     </div>
                 </div>
@@ -276,47 +274,42 @@
     </main>
 
     <script>
-        // Structure de données compatible avec les requêtes d'API futures
-        const database = {
-            accueil: [
-                { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", emoji: "❤️", streams: "145M" },
-                { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", emoji: "🎸", streams: "1.8B" },
-                { title: "La Symphonie des éclairs", artist: "Zaho de Sagazan", album: "La Symphonie des éclairs", date: "31/03/2023", emoji: "⚡", streams: "62M" }
-            ],
-            france: [
-                { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", emoji: "❤️", streams: "145M" },
-                { title: "La Symphonie des éclairs", artist: "Zaho de Sagazan", album: "La Symphonie des éclairs", date: "31/03/2023", emoji: "⚡", streams: "62M" }
-            ],
-            monde: [
-                { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", emoji: "🎸", streams: "1.8B" }
-            ],
-            jeunes: [
-                { title: "La Symphonie des éclairs", artist: "Zaho de Sagazan", album: "La Symphonie des éclairs", date: "31/03/2023", emoji: "⚡", streams: "62M" }
-            ]
-        };
-
-        let currentTab = 'accueil';
         const songsList = document.getElementById('songsList');
         const searchBar = document.getElementById('searchBar');
         const statsPanel = document.getElementById('statsPanel');
+        
+        // REQUÊTE VERS TON SERVEUR JS
+        // (Remplace 'localhost:3000' par l'adresse finale une fois hébergé)
+        const SERVER_URL = "http://localhost:3000/api/search";
 
-        // --- CODE STRUCTURE API (À activer avec ton serveur Node.js) ---
-        async function fetchLiveStats(songTitle, artistName) {
-            // Exemple de fonction de récupération de données d'API
-            // const response = await fetch(`https://api.spotify.com/v1/search?q=${songTitle}&type=track`, { headers: ... });
-            // const data = await response.json();
-            // return data.tracks.items[0];
+        async function searchMusic(query = '') {
+            try {
+                const response = await fetch(`${SERVER_URL}?q=${query}`);
+                const data = await response.json();
+                displaySongs(data);
+            } catch (error) {
+                console.error("Erreur serveur, affichage des données de secours", error);
+                // Secours si le serveur n'est pas encore en ligne localement
+                displaySongs([
+                    { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", emoji: "❤️", streams: "145M" },
+                    { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", emoji: "🎸", streams: "1.8B" }
+                ]);
+            }
         }
 
         function displaySongs(songs) {
             songsList.innerHTML = "";
+            if(songs.length === 0) {
+                songsList.innerHTML = "<p style='color: #64748b;'>Aucun résultat trouvé.</p>";
+                return;
+            }
             songs.forEach((song, index) => {
                 const row = document.createElement('div');
                 row.className = 'yt-row';
                 row.onclick = () => showStats(song);
                 row.innerHTML = `
                     <div class="row-index">${index + 1}</div>
-                    <div class="row-pochette">${song.emoji}</div>
+                    <div class="row-pochette">${song.emoji || "🎵"}</div>
                     <div class="row-details">
                         <div class="row-title">${song.title}</div>
                         <div class="row-artist">${song.artist}</div>
@@ -327,29 +320,18 @@
             });
         }
 
+        searchBar.addEventListener('input', (e) => {
+            document.getElementById('sectionTitle').innerText = "Résultats de recherche";
+            searchMusic(e.target.value);
+        });
+
         function changeTab(tabName, element) {
-            currentTab = tabName;
             document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
             element.classList.add('active');
-            
             const titles = { accueil: "Sélection rapide", france: "Top 10 France", monde: "Top Monde", jeunes: "Top Jeunes" };
             document.getElementById('sectionTitle').innerText = titles[tabName];
-            
-            displaySongs(database[tabName]);
+            searchMusic('');
         }
-
-        searchBar.addEventListener('input', (e) => {
-            const searchString = e.target.value.toLowerCase();
-            const allSongs = Object.values(database).flat();
-            // Supprime les doublons pour la recherche globale
-            const uniqueSongs = allSongs.filter((v,i,a)=>a.findIndex(v2=>(v2.title===v.title))===i);
-            
-            const filtered = uniqueSongs.filter(song => {
-                return song.title.toLowerCase().includes(searchString) || song.artist.toLowerCase().includes(searchString);
-            });
-            document.getElementById('sectionTitle').innerText = "Résultats de recherche";
-            displaySongs(filtered);
-        });
 
         function showStats(song) {
             document.getElementById('statsTitle').innerText = song.title;
@@ -357,14 +339,14 @@
             document.getElementById('statsAlbum').innerText = "Album : " + song.album;
             document.getElementById('statsDate').innerText = "Date de sortie : " + song.date;
             document.getElementById('statsStreams').innerText = song.streams;
-            document.getElementById('statsPochette').innerText = song.emoji;
+            document.getElementById('statsPochette').innerText = song.emoji || "🎵";
             statsPanel.style.display = "block";
         }
 
         function closeStats() { statsPanel.style.display = "none"; }
 
-        // Lancement
-        displaySongs(database.accueil);
+        // Lancement au démarrage
+        searchMusic('');
     </script>
 </body>
-</html> 
+</html>
