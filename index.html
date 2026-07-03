@@ -13,14 +13,13 @@
         }
 
         body {
-            background-color: #020617; /* VRAI Bleu nuit très profond */
+            background-color: #020617;
             color: #f8fafc;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* Barre latérale */
         nav {
             width: 260px;
             background-color: #0b1329;
@@ -36,9 +35,6 @@
             font-weight: 800;
             color: #38bdf8;
             margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         nav a {
@@ -54,10 +50,8 @@
         nav a:hover, nav a.active {
             color: #ffffff;
             background-color: #1e293b;
-            font-weight: 600;
         }
 
-        /* Zone principale */
         main {
             flex: 1;
             padding: 40px;
@@ -65,10 +59,7 @@
             position: relative;
         }
 
-        .search-container {
-            margin-bottom: 35px;
-        }
-
+        .search-container { margin-bottom: 35px; }
         .search-bar {
             width: 100%;
             max-width: 600px;
@@ -80,26 +71,10 @@
             font-size: 1rem;
         }
 
-        .search-bar:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
-        }
+        .section-title { margin-bottom: 25px; font-size: 1.5rem; }
 
-        .section-title {
-            margin-bottom: 25px;
-            font-size: 1.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        /* Interface "Sélection Rapide" */
-        .yt-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 40px;
-        }
-
+        /* Style Sélection Rapide sans numéros */
+        .yt-list { display: flex; flex-direction: column; gap: 8px; }
         .yt-row {
             display: flex;
             align-items: center;
@@ -108,57 +83,21 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid transparent;
         }
-
-        .yt-row:hover {
-            background-color: #1e293b;
-            border-color: #38bdf8;
-        }
-
-        .row-index {
-            width: 40px;
-            font-size: 1rem;
-            color: #64748b;
-            font-weight: bold;
-        }
+        .yt-row:hover { background-color: #1e293b; }
 
         .row-pochette {
-            width: 48px;
-            height: 48px;
-            background-color: #334155;
+            width: 50px;
+            height: 50px;
             border-radius: 6px;
             margin-right: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            object-fit: cover;
+            background-color: #1e293b;
         }
 
-        .row-details {
-            flex: 1;
-        }
-
-        .row-title {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 2px;
-        }
-
-        .row-artist {
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-
-        .row-album {
-            color: #64748b;
-            font-size: 0.85rem;
-            display: none;
-        }
-
-        @media (min-width: 1024px) {
-            .row-album { display: block; width: 250px; }
-        }
+        .row-details { flex: 1; }
+        .row-title { font-weight: 600; font-size: 1rem; }
+        .row-artist { color: #94a3b8; font-size: 0.85rem; }
 
         /* Fenêtre de Statistiques */
         .stats-panel {
@@ -179,62 +118,54 @@
             color: #38bdf8;
             font-size: 1.1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             margin-bottom: 40px;
         }
 
-        .stats-content {
-            display: flex;
-            gap: 50px;
-        }
-
+        .stats-content { display: flex; gap: 50px; }
         .stats-pochette {
             width: 280px;
             height: 280px;
-            background-color: #1e293b;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
         .stats-info h2 { font-size: 2.8rem; margin-bottom: 8px; }
         .stats-info h3 { font-size: 1.6rem; color: #38bdf8; margin-bottom: 24px; font-weight: 400; }
-        .stats-info p { color: #94a3b8; margin-bottom: 8px; font-size: 1.05rem; }
+        .stats-info p { color: #94a3b8; margin-bottom: 8px; }
 
         .stats-box {
             background-color: #0b1329;
             padding: 20px 30px;
             border-radius: 14px;
             border: 1px solid #1e293b;
+            margin-top: 20px;
+        }
+        .stats-number { font-size: 2rem; font-weight: bold; color: #10b981; }
+
+        /* Section Logos des plateformes */
+        .platform-container {
             margin-top: 30px;
+            display: flex;
+            gap: 15px;
         }
 
-        .stats-number {
-            font-size: 2rem;
+        .platform-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
             font-weight: bold;
-            color: #10b981;
-            margin-top: 5px;
+            color: white;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
         }
+        .spotify-btn { background-color: #1DB954; }
+        .apple-btn { background-color: #FC3C44; }
+        .youtube-btn { background-color: #FF0000; }
+        .platform-btn:hover { opacity: 0.8; transform: scale(1.05); }
 
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            nav {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                padding: 10px;
-                order: 2;
-                border-top: 1px solid #1e293b;
-            }
-            .logo { display: none; }
-            main { order: 1; padding: 20px; }
-            .stats-content { flex-direction: column; align-items: center; text-align: center; }
-        }
     </style>
 </head>
 <body>
@@ -244,12 +175,11 @@
         <a onclick="changeTab('accueil', this)" class="active">Accueil</a>
         <a onclick="changeTab('france', this)">Top 10 France</a>
         <a onclick="changeTab('monde', this)">Top Monde</a>
-        <a onclick="changeTab('jeunes', this)">Top Jeunes</a>
     </nav>
 
     <main>
         <div class="search-container">
-            <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher sur le serveur...">
+            <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher sur le catalogue mondial...">
         </div>
 
         <h2 class="section-title" id="sectionTitle">Sélection rapide</h2>
@@ -258,15 +188,21 @@
         <div class="stats-panel" id="statsPanel">
             <button class="back-btn" onclick="closeStats()">← Retour</button>
             <div class="stats-content">
-                <div class="stats-pochette" id="statsPochette">🎵</div>
+                <img class="stats-pochette" id="statsPochette" src="" alt="Pochette">
                 <div class="stats-info">
                     <h2 id="statsTitle">Titre</h2>
                     <h3 id="statsArtist">Artiste</h3>
                     <p id="statsAlbum">Album</p>
                     <p id="statsDate">Date de sortie</p>
                     <div class="stats-box">
-                        <p>Total des streams (Données serveur)</p>
+                        <p>Total des streams cumulés</p>
                         <div class="stats-number" id="statsStreams">0</div>
+                    </div>
+                    
+                    <div class="platform-container">
+                        <a id="linkSpotify" class="platform-btn spotify-btn" target="_blank">🟢 Spotify</a>
+                        <a id="linkApple" class="platform-btn apple-btn" target="_blank">🍎 Apple Music</a>
+                        <a id="linkYoutube" class="platform-btn youtube-btn" target="_blank">🔴 YT Music</a>
                     </div>
                 </div>
             </div>
@@ -277,9 +213,6 @@
         const songsList = document.getElementById('songsList');
         const searchBar = document.getElementById('searchBar');
         const statsPanel = document.getElementById('statsPanel');
-        
-        // REQUÊTE VERS TON SERVEUR JS
-        // (Remplace 'localhost:3000' par l'adresse finale une fois hébergé)
         const SERVER_URL = "http://localhost:3000/api/search";
 
         async function searchMusic(query = '') {
@@ -288,50 +221,35 @@
                 const data = await response.json();
                 displaySongs(data);
             } catch (error) {
-                console.error("Erreur serveur, affichage des données de secours", error);
-                // Secours si le serveur n'est pas encore en ligne localement
+                // Fallback avec les vraies images si le serveur Node n'est pas encore actif
                 displaySongs([
-                    { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", emoji: "❤️", streams: "145M" },
-                    { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", emoji: "🎸", streams: "1.8B" }
+                    { title: "Mon Amour", artist: "Slimane", album: "Chroniques d'un cupidon", date: "08/11/2023", image: "https://i.scdn.co/image/ab67616d0000b273b5089f24b2b2b1eb96d4ea2d", streams: "145M+", links: { spotify: "https://open.spotify.com/track/5X97Fh8c3G1VscX8Zt0C3G", apple: "#", youtube: "#" } },
+                    { title: "Creep", artist: "Radiohead", album: "Pablo Honey", date: "21/09/1992", image: "https://i.scdn.co/image/ab67616d0000b27393cb17da2e6b21ba3778a846", streams: "1.8B+", links: { spotify: "https://open.spotify.com/track/7spvFS76Z707vAsG709wOf", apple: "#", youtube: "#" } },
+                    { title: "La Symphonie des éclairs", artist: "Zaho de Sagazan", album: "La Symphonie des éclairs", date: "31/03/2023", image: "https://i.scdn.co/image/ab67616d0000b273e9702a0a2dfcb056df60341b", streams: "62M+", links: { spotify: "https://open.spotify.com/track/3n7N7M0xZt9B10ZUpA7zHk", apple: "#", youtube: "#" } }
                 ]);
             }
         }
 
         function displaySongs(songs) {
             songsList.innerHTML = "";
-            if(songs.length === 0) {
-                songsList.innerHTML = "<p style='color: #64748b;'>Aucun résultat trouvé.</p>";
-                return;
-            }
-            songs.forEach((song, index) => {
+            songs.forEach((song) => {
                 const row = document.createElement('div');
                 row.className = 'yt-row';
                 row.onclick = () => showStats(song);
                 row.innerHTML = `
-                    <div class="row-index">${index + 1}</div>
-                    <div class="row-pochette">${song.emoji || "🎵"}</div>
+                    <img class="row-pochette" src="${song.image}" alt="Pochette">
                     <div class="row-details">
                         <div class="row-title">${song.title}</div>
                         <div class="row-artist">${song.artist}</div>
                     </div>
-                    <div class="row-album">${song.album}</div>
                 `;
                 songsList.appendChild(row);
             });
         }
 
         searchBar.addEventListener('input', (e) => {
-            document.getElementById('sectionTitle').innerText = "Résultats de recherche";
             searchMusic(e.target.value);
         });
-
-        function changeTab(tabName, element) {
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            element.classList.add('active');
-            const titles = { accueil: "Sélection rapide", france: "Top 10 France", monde: "Top Monde", jeunes: "Top Jeunes" };
-            document.getElementById('sectionTitle').innerText = titles[tabName];
-            searchMusic('');
-        }
 
         function showStats(song) {
             document.getElementById('statsTitle').innerText = song.title;
@@ -339,13 +257,23 @@
             document.getElementById('statsAlbum').innerText = "Album : " + song.album;
             document.getElementById('statsDate').innerText = "Date de sortie : " + song.date;
             document.getElementById('statsStreams').innerText = song.streams;
-            document.getElementById('statsPochette').innerText = song.emoji || "🎵";
+            document.getElementById('statsPochette').src = song.image;
+            
+            // Liens vers les plateformes
+            document.getElementById('linkSpotify').href = song.links.spotify;
+            document.getElementById('linkApple').href = song.links.apple;
+            document.getElementById('linkYoutube').href = song.links.youtube;
+
             statsPanel.style.display = "block";
         }
 
         function closeStats() { statsPanel.style.display = "none"; }
+        function changeTab(tabName, element) {
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            element.classList.add('active');
+            searchMusic('');
+        }
 
-        // Lancement au démarrage
         searchMusic('');
     </script>
 </body>
